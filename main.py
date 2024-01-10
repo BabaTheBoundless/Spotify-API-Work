@@ -55,9 +55,20 @@ def get_songs_by_artist(token, artist_id):
 
 
 def get_albums_by_artists(token, artist_id):
-    url = f"https://api.spotify.com/v1/artists/{artist_id}/albums?country=US"
+    url = f"https://api.spotify.com/v1/artists/{artist_id}/albums"
     headers = get_auth_header(token)
-    result = get(url, headers=headers)
+
+    params = {
+        "country": "US",
+        "album_type": "album",
+        "limit": 10,
+        "offset": 0,
+        "market": "US",
+        "limit": 10,
+        "offset": 0,
+    }
+
+    result = get(url, headers=headers, params=params)
     json_result = json.loads(result.content)["items"]
     return json_result
 
@@ -71,6 +82,8 @@ artist_id = result["id"]
 songs = get_songs_by_artist(token, artist_id)
 for idx, song in enumerate(songs):
     print(f"{idx + 1}. {song['name']}")
+
+print()
 
 albums = get_albums_by_artists(token, artist_id)
 for idx, album in enumerate(albums):
