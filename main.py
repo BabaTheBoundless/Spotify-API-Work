@@ -61,11 +61,7 @@ def get_albums_by_artists(token, artist_id):
     params = {
         "country": "US",
         "album_type": "album",
-        "limit": 10,
-        "offset": 0,
-        "market": "US",
-        "limit": 10,
-        "offset": 0,
+        "limit": 5,
     }
 
     result = get(url, headers=headers, params=params)
@@ -73,11 +69,14 @@ def get_albums_by_artists(token, artist_id):
     return json_result
 
 
+print()
+
 token = get_token()
 result = search_for_artist(token, "Led Zeppelin")
 print(result["name"])
 artist_id = result["id"]
 
+print()
 
 songs = get_songs_by_artist(token, artist_id)
 for idx, song in enumerate(songs):
