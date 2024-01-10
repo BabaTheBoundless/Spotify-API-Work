@@ -54,12 +54,24 @@ def get_songs_by_artist(token, artist_id):
     return json_result
 
 
+def get_albums_by_artists(token, artist_id):
+    url = f"https://api.spotify.com/v1/artists/{artist_id}/albums?country=US"
+    headers = get_auth_header(token)
+    result = get(url, headers=headers)
+    json_result = json.loads(result.content)["items"]
+    return json_result
+
+
 token = get_token()
 result = search_for_artist(token, "Led Zeppelin")
 print(result["name"])
 artist_id = result["id"]
+
+
 songs = get_songs_by_artist(token, artist_id)
-
-
 for idx, song in enumerate(songs):
     print(f"{idx + 1}. {song['name']}")
+
+albums = get_albums_by_artists(token, artist_id)
+for idx, album in enumerate(albums):
+    print(f"{idx + 1}. {album['name']}")
