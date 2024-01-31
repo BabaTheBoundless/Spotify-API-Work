@@ -46,7 +46,7 @@ def search_for_artist(token, artist_name):
     return json_result[0]
 
 
-def get_songs_by_artist(token, artist_id):
+def get_songs_by_artist(token, artist_id):  # shows most popular songs
     url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks?country=US"
     headers = get_auth_header(token)
     result = get(url, headers=headers)
@@ -54,7 +54,7 @@ def get_songs_by_artist(token, artist_id):
     return json_result
 
 
-def get_albums_by_artists(token, artist_id):
+def get_albums_by_artists(token, artist_id):  # shows most recent releases
     url = f"https://api.spotify.com/v1/artists/{artist_id}/albums"
     headers = get_auth_header(token)
 
@@ -72,7 +72,7 @@ def get_albums_by_artists(token, artist_id):
 print()
 
 token = get_token()
-result = search_for_artist(token, "Led Zeppelin")
+result = search_for_artist(token, "Volbeat")
 print(result["name"])
 artist_id = result["id"]
 
